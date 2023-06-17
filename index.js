@@ -1,17 +1,5 @@
 const readline = require('readline-sync');
 
-printWelcomeMessage();
-
-var flag = true;
-while (flag) {
-    var operator = getOperator();
-    var times = getTimes();
-    var numbersArray = getNumbers();
-    calculateAndPrint();
-    flag = goAgain();
-}
-
-
 // Functions
 function printWelcomeMessage() {
     console.log('Welcome to the calculator!');
@@ -33,11 +21,20 @@ function getTimes() {
     }
 }
 
+function askForSpecificNumber(k) {
+    console.log('Enter number ' + k.toString() + ' : ');
+    const currentNumber = readline.prompt();
+    if (isNaN(currentNumber)) {
+        askForSpecificNumber(k);
+    } else {
+        return currentNumber;
+    }
+} 
+
 function getNumbers() {
     let numbers = [];
     for (let i = 1; i < (+times+1); i++) {
-        console.log('Enter number ' + i.toString() + ' : ');
-        const currentNumber = readline.prompt();
+        const currentNumber = askForSpecificNumber(i);
         numbers.push(+currentNumber);
     }
     return numbers
@@ -60,10 +57,25 @@ function calculateAndPrint() {
         }
     }
 
-    console.log('The answer is ' + result);
+    if (isNaN(result)) {
+        console.log('The answer is invalid. Please make sure you entered correct numbers at each stage.')
+    } else {
+        console.log('The answer is ' + result);
+    }
 }
 
 function goAgain() {
     console.log("Would you like to do another calculation? [Y/N]")
     return (readline.prompt() == 'Y');
+}
+
+printWelcomeMessage();
+
+var flag = true;
+while (flag) {
+    var operator = getOperator();
+    var times = getTimes();
+    var numbersArray = getNumbers();
+    calculateAndPrint();
+    flag = goAgain();
 }
