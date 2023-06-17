@@ -12,7 +12,7 @@ function getOperator() {
 }
 
 function getTimes() {
-    console.log('How many times would you like to ' + operator + '? ');
+    console.log(`How many times would you like to ${operator}?`);
     const times = +readline.prompt();
     if (isNaN(times)) {
         return getTimes();
@@ -22,7 +22,7 @@ function getTimes() {
 }
 
 function askForSpecificNumber(k) {
-    console.log('Enter number ' + k.toString() + ' : ');
+    console.log(`Enter number ${k.toString()}: `);
     const currentNumber = readline.prompt();
     if (isNaN(currentNumber)) {
         askForSpecificNumber(k);
@@ -54,13 +54,15 @@ function calculateAndPrint() {
             result = result * numbersArray[x];
         } else if (operator == '/') {
             result = result / numbersArray[x];
+        } else {
+            console.log(`Please make sure you enter a valid operator. '${operator}' is invalid.`);
         }
     }
 
     if (isNaN(result)) {
         console.log('The answer is invalid. Please make sure you entered correct numbers at each stage.')
     } else {
-        console.log('The answer is ' + result);
+        console.log(`The answer is ${result}`);
     }
 }
 
